@@ -1,0 +1,3 @@
+C:/dev/XMLToHTMLConverter/cmake-build-debug/CMakeFiles/XMLToHTMLConverter.dir
+C:/dev/XMLToHTMLConverter/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/dev/XMLToHTMLConverter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
