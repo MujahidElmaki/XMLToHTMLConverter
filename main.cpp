@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 int main() {
     // High level thought process
@@ -16,6 +18,30 @@ int main() {
     // Pseudo Code implementation
 
     // 1. Init a blank HTML page that will have html, head and body tags
+    std::string html =
+            "<!DOCTYPE html>\n"
+            "<html lang=\"en\">\n"
+            "<head>\n"
+            "<title>CD Catalog</title>\n"
+            "</head>\n"
+            "<body>\n"
+            // Content will go here
+            "</body>\n"
+            "</html>";
+
+    std::cout << html << std::endl;
+    std::ofstream file;
+    file.open("cd_catalog.html");
+
+    if(file.is_open()) {
+        file << html;
+        file.close();
+
+        std::cout << "HTML file created successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open file for writing" << std::endl;
+    }
+
     // 2. If the XML given is empty simply return the blank HTML
     // 3. If not then proceed by parsing through the CD tags, grabbing the attributes inside them
     // 4. Think of a way to map those corresponding values to HTML
