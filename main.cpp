@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "lib/rapidxml/rapidxml.hpp"
+#include "lib/rapidxml/rapidxml_utils.hpp"
 
 int main() {
     // High level thought process
@@ -43,8 +45,26 @@ int main() {
     }
 
     // 2. If the XML given is empty simply return the blank HTML
+    //     2a. Parse the XML
+    rapidxml::file<> xmlFile("cd_catalog.xml"); // Reads the XML file and creates object
+    rapidxml::xml_document<> doc;
+    doc.parse<0>(xmlFile.data()); // The <0> declares the parsing mode = default
+
+    // Grab the root node, which should be catalog
+    rapidxml::xml_node<> *root_node = doc.first_node("CATALOG"); // Point the first node to the root
+
+    // Iterate over the CD nodes
+    for (rapidxml::xml_node<> *cd_node = root_node->first_node("CD"); cd_node; cd_node = cd_node->next_sibling()) {
+        rapidxml::xml_node<> *title_node = cd_node->first_node("TITLE");
+        rapidxml::xml_node<> *artist_node = cd_node->first_node("ARTIST");
+
+        std::cout << "Title: " << (title_node ? title_node->value() : "N/A") << ", ";
+        std::cout << "Artist: " << (artist_node ? artist_node->value() : "N/A") << std::endl;
+    }
+
     // 3. If not then proceed by parsing through the CD tags, grabbing the attributes inside them
     // 4. Think of a way to map those corresponding values to HTML
     // 5. Add the values to the initialized HTML page
     // 6. Think about the user experience when the MVP is complete
+    return 0;
 }
