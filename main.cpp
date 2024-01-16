@@ -5,7 +5,12 @@
 #include "lib/rapidxml/rapidxml.hpp"
 #include "lib/rapidxml/rapidxml_utils.hpp"
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Check if file name was provided
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <XML_FILE>" << std::endl;
+        return 1;
+    }
     // 1. Init a blank HTML page that will have html, head and body tags
     std::stringstream html;
     html << "<!DOCTYPE html>\n"
@@ -18,7 +23,8 @@ int main() {
          << "<tr><th>Title</th><th>Artist</th><th>Country</th><th>Company</th><th>Price</th><th>Year</th></tr>\n"; // Table headers
 
     // 2. Parse the XML
-    rapidxml::file<> xmlFile("cd_catalog.xml"); // Reads the XML file and creates object
+    std::string xmlFileName = argv[1];
+    rapidxml::file<> xmlFile(xmlFileName.c_str()); // Reads the XML file and creates object
     rapidxml::xml_document<> doc;
     doc.parse<0>(xmlFile.data()); // The <0> declares the parsing mode = default
 
